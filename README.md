@@ -39,7 +39,7 @@ You can tell spectro to sample at intervals other than the default once-per-seco
 ```
 $ sudo dtrace -qn 'syscall::read:entry { self->ts = timestamp; }
     syscall::read:return /self->ts/ {
-    printf("%d\n", (timestamp - self->ts) / 1000); self->ts = 0; }' | spectro -sample-period-s 10000
+    printf("%d\n", (timestamp - self->ts) / 1000); self->ts = 0; }' | spectro -sample-period-ms 10000
 ```
 `
 
@@ -70,7 +70,7 @@ Using the provided sample.log and the pacemaker command you can play back activi
 
 ![sample log file spectrograph](http://markcrossfield.co.uk/images/spectro/sample.gif)
 
-By default `pacemaker` will trigger a sample once per second, but you can adjust that by specifying the `sample-period-s` option. For example to sample once evety ten minutes you might run `cat test.log | pacemaker -sample-period-s 600 | spectro`
+By default `pacemaker` will trigger a sample once per second, but you can adjust that by specifying the `sample-period-ms` option. For example to sample once evety ten minutes you might run `cat test.log | pacemaker -sample-period-ms 600000 | spectro`
 
 ## Contributing
 
